@@ -6,12 +6,12 @@ export const TicTacToe = () => {
   for (let row = 0; row < 3; row++) {
     initialState.push([]);
     for (let col = 0; col < 3; col++) {
-      initialState[row].push("");
+      initialState[row].push("X");
     }
   }
   const [game, setGame] = useState(initialState);
 
-  const handleButtonClick = (value, row, col) => {
+  const handleButtonClick = (row, col) => {
     if (!game[row][col]) {
       setGame((prevGame) => {
         prevGame[row][col] = "X";
@@ -22,7 +22,7 @@ export const TicTacToe = () => {
 
   return (
     <div>
-      <Display game={game} onClick={handleButtonClick} />
+      <Display game={game} handleButtonClick={handleButtonClick} />
     </div>
   );
 };
