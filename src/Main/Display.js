@@ -17,6 +17,7 @@ export const Display = ({ game, handleButtonClick }) => {
             ([1, 4, 7].includes(index) ? "solid" : "none");
           return (
             <Grid
+              key={index}
               item
               xs={4}
               sx={{
@@ -30,7 +31,7 @@ export const Display = ({ game, handleButtonClick }) => {
                 borderColor: "black",
                 fontSize: { xs: "30px", sm: "80px" },
               }}
-              onClick={handleButtonClick}
+              onClick={() => handleButtonClick(index)}
             >
               {element}
             </Grid>
