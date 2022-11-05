@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid } from "@mui/material";
 
-export default function Display({ game, handleButtonClick }) {
+export default function Display({ game, handleButtonClick, status }) {
   return (
     <Container
       sx={{
@@ -37,6 +37,7 @@ export default function Display({ game, handleButtonClick }) {
           );
         })}
       </Grid>
+      <h2>{status !== "inProgress" && status}</h2>
     </Container>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Display from "./Display";
-import { botPlay } from "../utils";
+import { botPlay, gameStatus } from "../utils";
 
 export default function TicTacToe() {
   let initialState = [];
@@ -8,19 +8,30 @@ export default function TicTacToe() {
     initialState.push("");
   }
   const [game, setGame] = useState(initialState);
+  const [status, setStatus] = useState("inProgress");
 
   const handleButtonClick = (index) => {
+    if (status !== "inProgress") return;
     const newGame = [...game];
     if (!game[index]) {
       newGame[index] = "X";
-      botPlay(newGame);
+      const newStatus = gameStatus(newGame);
+      setStatus(newStatus);
+      if (newStatus === "inProgress") {
+        botPlay(newGame);
+        setStatus(gameStatus(newGame));
+      }
     }
     setGame(newGame);
   };
 
   return (
     <div>
-      <Display game={game} handleButtonClick={handleButtonClick} />
+      <Display
+        status={status}
+        game={game}
+        handleButtonClick={handleButtonClick}
+      />
     </div>
   );
 }
