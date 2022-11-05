@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid } from "@mui/material";
 
-export const Display = ({ game, handleButtonClick }) => {
+export default function Display({ game, handleButtonClick }) {
   return (
     <Container
       sx={{
@@ -39,4 +39,4 @@ export const Display = ({ game, handleButtonClick }) => {
       </Grid>
     </Container>
   );
-};
+}

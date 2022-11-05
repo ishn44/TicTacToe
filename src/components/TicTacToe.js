@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Display } from "./Display";
+import Display from "./Display";
+import * as bot from "../bot";
 
-export const TicTacToe = () => {
+export default function TicTacToe() {
   let initialState = [];
   for (let i = 0; i < 9; i++) {
     initialState.push("");
@@ -14,12 +15,7 @@ export const TicTacToe = () => {
     const newGame = [...game];
     if (!game[index]) {
       newGame[index] = "X";
-      let isComputersTurn = true;
-      for (let i = 0; i < 9; i++)
-        if (!newGame[i] && isComputersTurn) {
-          newGame[i] = "O";
-          isComputersTurn = false;
-        }
+      bot.play(newGame);
     }
     setGame(newGame);
   };
@@ -29,4 +25,4 @@ export const TicTacToe = () => {
       <Display game={game} handleButtonClick={handleButtonClick} />
     </div>
   );
-};
+}
