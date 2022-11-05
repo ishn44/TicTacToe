@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Grid } from "@mui/material";
 
 export const Display = ({ game, handleButtonClick }) => {
-  const gameArr = [...game[0], ...game[1], ...game[2]];
   return (
     <Container
       sx={{
@@ -11,7 +10,7 @@ export const Display = ({ game, handleButtonClick }) => {
       }}
     >
       <Grid container sx={{}}>
-        {gameArr.map((element, index) => {
+        {game.map((element, index) => {
           let borderStyle =
             ([3, 4, 5].includes(index) ? "solid " : "none ") +
             ([1, 4, 7].includes(index) ? "solid" : "none");
