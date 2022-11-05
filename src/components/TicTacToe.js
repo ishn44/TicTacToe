@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Display from "./Display";
-import * as bot from "../bot";
+import { botPlay } from "../utils";
 
 export default function TicTacToe() {
   let initialState = [];
@@ -10,12 +10,10 @@ export default function TicTacToe() {
   const [game, setGame] = useState(initialState);
 
   const handleButtonClick = (index) => {
-    // let row = Math.floor(index / 3);
-    // let col = index % 3;
     const newGame = [...game];
     if (!game[index]) {
       newGame[index] = "X";
-      bot.play(newGame);
+      botPlay(newGame);
     }
     setGame(newGame);
   };
