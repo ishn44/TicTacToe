@@ -1,7 +1,12 @@
 import React from "react";
-import { Container, Grid } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 
-export default function Display({ game, handleButtonClick, status }) {
+export default function Display({
+  game,
+  handleButtonClick,
+  status,
+  handlePlayAgain,
+}) {
   return (
     <Container
       sx={{
@@ -37,7 +42,14 @@ export default function Display({ game, handleButtonClick, status }) {
           );
         })}
       </Grid>
-      <h2>{status !== "inProgress" && status}</h2>
+      {status !== "inProgress" && (
+        <div>
+          <h2>{status}</h2>
+          <Button variant="contained" onClick={handlePlayAgain}>
+            Play Again
+          </Button>
+        </div>
+      )}
     </Container>
   );
 }

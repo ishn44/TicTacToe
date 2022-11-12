@@ -25,12 +25,18 @@ export default function TicTacToe() {
     setGame(newGame);
   };
 
+  const handlePlayAgain = () => {
+    setGame(initialState);
+    setStatus("inProgress");
+  };
+
   return (
     <div>
       <Display
         status={status}
         game={game}
         handleButtonClick={handleButtonClick}
+        handlePlayAgain={handlePlayAgain}
       />
     </div>
   );
