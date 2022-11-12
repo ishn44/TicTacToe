@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Container, Grid } from "@mui/material";
+import { isGameEmpty } from "../utils";
 
 export default function Display({
   game,
@@ -50,6 +51,7 @@ export default function Display({
           </Button>
         </div>
       )}
+      {/* {isGameEmpty(game)&&<Button variant="contained">Switch Symbol</Button>} */}
     </Container>
   );
 }

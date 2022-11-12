@@ -15,6 +15,9 @@ const lines = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+function botSymbol(userSymbol) {
+  return userSymbol === "X" ? "O" : "X";
+}
 
 function findWinningIndex(game, player) {
   for (let line of lines) {
@@ -31,23 +34,32 @@ function findWinningIndex(game, player) {
   return -1;
 }
 
-export function botPlay(game) {
-  let index = findWinningIndex(game, "O");
-  if (index === -1) index = findWinningIndex(game, "X");
+export function botPlay(game, userSymbol) {
+  let index = findWinningIndex(game, botSymbol(userSymbol));
+  if (index === -1) index = findWinningIndex(game, userSymbol);
   if (index === -1 && !game[4]) index = 4;
   if (index === -1) index = game.findIndex((e) => !e);
-  game[index] = "O";
+  game[index] = botSymbol(userSymbol);
 }
 
-export function gameStatus(game) {
+export function gameStatus(game, userSymbol) {
   for (let line of lines) {
     if (
       game[line[0]] &&
       game[line[0]] === game[line[1]] &&
       game[line[1]] === game[line[2]]
     )
-      return game[line[0]] === "X" ? "userWon" : "botWon";
+      return game[line[0]] === userSymbol ? "userWon" : "botWon";
   }
   if (game.findIndex((e) => !e) === -1) return "tie";
   return "inProgress";
+}
+
+export function isGameEmpty(game) {
+  for (let elem of game) {
+    if (elem) {
+      return false;
+    }
+  }
+  return true;
 }

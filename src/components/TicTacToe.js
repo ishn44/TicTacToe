@@ -9,17 +9,18 @@ export default function TicTacToe() {
   }
   const [game, setGame] = useState(initialState);
   const [status, setStatus] = useState("inProgress");
+  const [userSymbol, setUserSymbol] = useState("X");
 
   const handleButtonClick = (index) => {
     if (status !== "inProgress") return;
     const newGame = [...game];
     if (!game[index]) {
-      newGame[index] = "X";
-      const newStatus = gameStatus(newGame);
+      newGame[index] = userSymbol;
+      const newStatus = gameStatus(newGame, userSymbol);
       setStatus(newStatus);
       if (newStatus === "inProgress") {
-        botPlay(newGame);
-        setStatus(gameStatus(newGame));
+        botPlay(newGame, userSymbol);
+        setStatus(gameStatus(newGame, userSymbol));
       }
     }
     setGame(newGame);
