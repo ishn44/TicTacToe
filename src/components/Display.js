@@ -1,5 +1,14 @@
 import React from "react";
-import { Button, Container, Grid } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  FormControl,
+  FormControlLabel,
+  RadioGroup,
+  FormLabel,
+  Radio,
+} from "@mui/material";
 import { isGameEmpty } from "../utils";
 
 export default function Display({
@@ -7,6 +16,8 @@ export default function Display({
   handleButtonClick,
   status,
   handlePlayAgain,
+  handleSymbolChange,
+  userSymbol,
 }) {
   return (
     <Container
@@ -44,14 +55,32 @@ export default function Display({
         })}
       </Grid>
       {status !== "inProgress" && (
-        <div>
+        <Grid>
           <h2>{status}</h2>
           <Button variant="contained" onClick={handlePlayAgain}>
             Play Again
           </Button>
-        </div>
+        </Grid>
       )}
-      {/* {isGameEmpty(game)&&<Button variant="contained">Switch Symbol</Button>} */}
+      {isGameEmpty(game) && (
+        <FormControl>
+          <FormLabel>Change Symbol:</FormLabel>
+          <RadioGroup value={userSymbol} row>
+            <FormControlLabel
+              value="X"
+              control={<Radio />}
+              label="X"
+              onClick={handleSymbolChange}
+            />
+            <FormControlLabel
+              value="O"
+              control={<Radio />}
+              label="O"
+              onClick={handleSymbolChange}
+            />
+          </RadioGroup>
+        </FormControl>
+      )}
     </Container>
   );
 }

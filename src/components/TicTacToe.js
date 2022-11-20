@@ -31,6 +31,10 @@ export default function TicTacToe() {
     setStatus("inProgress");
   };
 
+  const handleSymbolChange = ({ target }) => {
+    setUserSymbol(target.value);
+  };
+
   return (
     <div>
       <Display
@@ -38,6 +42,8 @@ export default function TicTacToe() {
         game={game}
         handleButtonClick={handleButtonClick}
         handlePlayAgain={handlePlayAgain}
+        handleSymbolChange={handleSymbolChange}
+        userSymbol={userSymbol}
       />
     </div>
   );
