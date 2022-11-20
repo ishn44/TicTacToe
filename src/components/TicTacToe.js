@@ -8,14 +8,15 @@ export default function TicTacToe() {
     initialState.push("");
   }
   const [game, setGame] = useState(initialState);
-  const [status, setStatus] = useState("firstGame");
   const [userSymbol, setUserSymbol] = useState("X");
-  const [stats, setStats] = useState({
+  const [gameState, setGameState] = useState({
+    status: "firstGame",
     botWins: 0,
     userWins: 0,
     ties: 0,
     totalGames: 0,
   });
+  const { status } = gameState;
 
   const handleButtonClick = (index) => {
     if (status !== "inProgress") return;
@@ -34,7 +35,7 @@ export default function TicTacToe() {
 
   const handlePlayAgain = () => {
     setGame(initialState);
-    setStatus("inProgress");
+    setGameState((prev) => ({ ...prev, status: "inProgress" }));
   };
 
   const handleSymbolChange = ({ target }) => {
@@ -44,13 +45,12 @@ export default function TicTacToe() {
   return (
     <div>
       <Display
-        status={status}
         game={game}
         handleButtonClick={handleButtonClick}
         handlePlayAgain={handlePlayAgain}
         handleSymbolChange={handleSymbolChange}
         userSymbol={userSymbol}
-        stats={stats}
+        gameState={gameState}
       />
     </div>
   );

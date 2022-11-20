@@ -8,18 +8,18 @@ import {
   RadioGroup,
   FormLabel,
   Radio,
+  Paper,
 } from "@mui/material";
-import { isGameEmpty } from "../utils";
 
 export default function Display({
   game,
   handleButtonClick,
-  status,
   handlePlayAgain,
   handleSymbolChange,
   userSymbol,
-  stats,
+  gameState,
 }) {
+  const { status } = gameState;
   return (
     <Container
       sx={{
@@ -55,31 +55,37 @@ export default function Display({
           );
         })}
       </Grid>
-      {status !== "inProgress" && (
-        <Grid>
-          <h2>{status !== "firstGame" && status}</h2>
-          <Button variant="contained" onClick={handlePlayAgain}>
-            {status === "firstGame" ? "Start Game" : "Play Again"}
-          </Button>
-          <FormControl>
-            <FormLabel>Change Symbol:</FormLabel>
-            <RadioGroup value={userSymbol} row>
-              <FormControlLabel
-                value="X"
-                control={<Radio />}
-                label="X"
-                onClick={handleSymbolChange}
-              />
-              <FormControlLabel
-                value="O"
-                control={<Radio />}
-                label="O"
-                onClick={handleSymbolChange}
-              />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-      )}
+      <Grid>
+        {status !== "inProgress" && (
+          <Paper elevation={0}>
+            <h2>{status !== "firstGame" && status}</h2>
+            <Button variant="contained" onClick={handlePlayAgain}>
+              {status === "firstGame" ? "Start Game" : "Play Again"}
+            </Button>
+            <FormControl>
+              <FormLabel>Change Symbol:</FormLabel>
+              <RadioGroup value={userSymbol} row>
+                <FormControlLabel
+                  value="X"
+                  control={<Radio />}
+                  label="X"
+                  onClick={handleSymbolChange}
+                />
+                <FormControlLabel
+                  value="O"
+                  control={<Radio />}
+                  label="O"
+                  onClick={handleSymbolChange}
+                />
+              </RadioGroup>
+            </FormControl>
+          </Paper>
+        )}
+        <h2>Game Stats</h2>
+        <h3>Wins: {gameState.userWins}</h3>
+        <h3>Losses: {gameState.botWins}</h3>
+        <h3>Ties: {gameState.ties}</h3>
+      </Grid>
     </Container>
   );
 }
