@@ -18,6 +18,7 @@ export default function Display({
   handlePlayAgain,
   handleSymbolChange,
   userSymbol,
+  stats,
 }) {
   return (
     <Container
@@ -56,30 +57,28 @@ export default function Display({
       </Grid>
       {status !== "inProgress" && (
         <Grid>
-          <h2>{status}</h2>
+          <h2>{status !== "firstGame" && status}</h2>
           <Button variant="contained" onClick={handlePlayAgain}>
-            Play Again
+            {status === "firstGame" ? "Start Game" : "Play Again"}
           </Button>
+          <FormControl>
+            <FormLabel>Change Symbol:</FormLabel>
+            <RadioGroup value={userSymbol} row>
+              <FormControlLabel
+                value="X"
+                control={<Radio />}
+                label="X"
+                onClick={handleSymbolChange}
+              />
+              <FormControlLabel
+                value="O"
+                control={<Radio />}
+                label="O"
+                onClick={handleSymbolChange}
+              />
+            </RadioGroup>
+          </FormControl>
         </Grid>
-      )}
-      {isGameEmpty(game) && (
-        <FormControl>
-          <FormLabel>Change Symbol:</FormLabel>
-          <RadioGroup value={userSymbol} row>
-            <FormControlLabel
-              value="X"
-              control={<Radio />}
-              label="X"
-              onClick={handleSymbolChange}
-            />
-            <FormControlLabel
-              value="O"
-              control={<Radio />}
-              label="O"
-              onClick={handleSymbolChange}
-            />
-          </RadioGroup>
-        </FormControl>
       )}
     </Container>
   );
