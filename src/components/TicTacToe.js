@@ -14,9 +14,33 @@ export default function TicTacToe() {
     botWins: 0,
     userWins: 0,
     ties: 0,
-    totalGames: 0,
   });
   const { status } = gameState;
+
+  const updateState = (status) => {
+    switch (status) {
+      case "botWon":
+        setGameState((prev) => ({
+          ...prev,
+          botWins: prev.botWins + 1,
+          status,
+        }));
+        break;
+      case "userWon":
+        setGameState((prev) => ({
+          ...prev,
+          userWins: prev.userWins + 1,
+          status,
+        }));
+        break;
+      case "tie":
+        setGameState((prev) => ({ ...prev, ties: prev.ties + 1, status }));
+        break;
+      case "inProgress":
+        setGameState((prev) => ({ ...prev, status }));
+        break;
+    }
+  };
 
   const handleButtonClick = (index) => {
     if (status !== "inProgress") return;
@@ -24,10 +48,10 @@ export default function TicTacToe() {
     if (!game[index]) {
       newGame[index] = userSymbol;
       const newStatus = gameStatus(newGame, userSymbol);
-      setStatus(newStatus);
+      updateState(newStatus);
       if (newStatus === "inProgress") {
         botPlay(newGame, userSymbol);
-        setStatus(gameStatus(newGame, userSymbol));
+        updateState(gameStatus(newGame, userSymbol));
       }
     }
     setGame(newGame);
