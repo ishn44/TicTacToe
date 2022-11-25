@@ -7,6 +7,7 @@ export default function TicTacToe() {
   for (let i = 0; i < 9; i++) {
     initialState.push("");
   }
+  const getRandomBoolean = () => Math.random() < 0.5;
   const [game, setGame] = useState(initialState);
   const [userSymbol, setUserSymbol] = useState("X");
   const [gameState, setGameState] = useState({
@@ -14,8 +15,9 @@ export default function TicTacToe() {
     botWins: 0,
     userWins: 0,
     ties: 0,
+    isUserPlayingFirst: getRandomBoolean(),
   });
-  const { status } = gameState;
+  const { status, isUserPlayingFirst } = gameState;
 
   const updateState = (status) => {
     switch (status) {
@@ -59,7 +61,11 @@ export default function TicTacToe() {
 
   const handlePlayAgain = () => {
     setGame(initialState);
-    setGameState((prev) => ({ ...prev, status: "inProgress" }));
+    setGameState((prev) => ({
+      ...prev,
+      status: "inProgress",
+      isUserPlayingFirst: getRandomBoolean(),
+    }));
   };
 
   const handleSymbolChange = ({ target }) => {

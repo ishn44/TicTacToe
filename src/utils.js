@@ -1,7 +1,6 @@
 /*
 - Win immediately
 - Block the opponent from an immediate win
-- Always pick the middle spot if the available
 - Use first available spot
 */
 
