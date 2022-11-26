@@ -55,6 +55,7 @@ export default function Display({
           );
         })}
       </Grid>
+      {gameState.isBotThinking && <h1>🤔</h1>}
       <Grid>
         {status !== "inProgress" && (
           <Paper elevation={0}>

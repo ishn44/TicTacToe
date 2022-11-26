@@ -51,10 +51,10 @@ export default function TicTacToe() {
     if (!game[index]) {
       newGame[index] = userSymbol;
       setGame(newGame);
+      setGameState((prev) => ({ ...prev, isBotThinking: true }));
       const newStatus = gameStatus(newGame, userSymbol);
       updateState(newStatus);
       if (newStatus === "inProgress") {
-        setGameState((prev) => ({ ...prev, isBotThinking: true }));
         await new Promise((resolve) => setTimeout(resolve, 1000));
         botPlay(newGame, userSymbol);
         setGameState((prev) => ({ ...prev, isBotThinking: false }));
@@ -73,6 +73,7 @@ export default function TicTacToe() {
       ...prev,
       status: "inProgress",
       isUserPlayingFirst,
+      isBotThinking: false,
     }));
   };
 
