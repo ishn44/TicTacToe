@@ -16,8 +16,9 @@ export default function TicTacToe() {
     userWins: 0,
     ties: 0,
     isUserPlayingFirst: getRandomBoolean(),
+    isBotThinking: false,
   });
-  const { status, isUserPlayingFirst } = gameState;
+  const { status, isUserPlayingFirst, isBotThinking } = gameState;
 
   const updateState = (status) => {
     switch (status) {
@@ -44,15 +45,19 @@ export default function TicTacToe() {
     }
   };
 
-  const handleButtonClick = (index) => {
-    if (status !== "inProgress") return;
+  const handleButtonClick = async (index) => {
+    if (status !== "inProgress" || isBotThinking) return;
     const newGame = [...game];
     if (!game[index]) {
       newGame[index] = userSymbol;
+      setGame(newGame);
       const newStatus = gameStatus(newGame, userSymbol);
       updateState(newStatus);
       if (newStatus === "inProgress") {
+        setGameState((prev) => ({ ...prev, isBotThinking: true }));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         botPlay(newGame, userSymbol);
+        setGameState((prev) => ({ ...prev, isBotThinking: false }));
         updateState(gameStatus(newGame, userSymbol));
       }
     }
