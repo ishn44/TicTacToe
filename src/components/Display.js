@@ -19,7 +19,7 @@ export default function Display({
   userSymbol,
   gameState,
 }) {
-  const { status } = gameState;
+  const { status, isUserPlayingFirst } = gameState;
   return (
     <Container
       sx={{
@@ -57,7 +57,7 @@ export default function Display({
       </Grid>
       {gameState.isBotThinking && <h1>🤔</h1>}
       <Grid>
-        {status !== "inProgress" && (
+        {!["inProgress", "coinFlip", "coinFlipDone"].includes(status) && (
           <Paper elevation={0}>
             <h2>{status !== "firstGame" && status}</h2>
             <Button variant="contained" onClick={handlePlayAgain}>
@@ -81,6 +81,10 @@ export default function Display({
               </RadioGroup>
             </FormControl>
           </Paper>
+        )}
+        {status === "coinFlip" && <h2>Coin Flip</h2>}
+        {status === "coinFlipDone" && (
+          <h2>{isUserPlayingFirst ? "You go first" : "Bot goes first"}</h2>
         )}
         <h2>Game Stats</h2>
         <h3>Wins: {gameState.userWins}</h3>

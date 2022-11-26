@@ -64,15 +64,22 @@ export default function TicTacToe() {
     setGame(newGame);
   };
 
-  const handlePlayAgain = () => {
+  const handlePlayAgain = async () => {
     const newGame = [...initialGame];
+    setGameState((prev) => ({ ...prev, status: "coinFlip" }));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const isUserPlayingFirst = getRandomBoolean();
+    setGameState((prev) => ({
+      ...prev,
+      status: "coinFlipDone",
+      isUserPlayingFirst,
+    }));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     if (!isUserPlayingFirst) botPlay(newGame, userSymbol);
     setGame(newGame);
     setGameState((prev) => ({
       ...prev,
       status: "inProgress",
-      isUserPlayingFirst,
       isBotThinking: false,
     }));
   };
