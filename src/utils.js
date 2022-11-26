@@ -1,6 +1,10 @@
 /*
 - Win immediately
 - Block the opponent from an immediate win
+- If there are two intersecting lines where the opponent doesn't control any spots and the bot controls one non-shared spot on each line, take the spot shared by the two lines.
+- If there are two intersecting lines where the opponent doesn't control any spots and the bot controls only one non-shared spot on one line, take a non-shared spot on the other line.
+- If there are two intersecting lines where the opponent doesn't control any spots, take one one non-shared spot on either of those two lines
+- Take middle spot
 - Use first available spot
 */
 

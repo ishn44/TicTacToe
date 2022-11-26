@@ -55,7 +55,7 @@ export default function Display({
           );
         })}
       </Grid>
-      {gameState.isBotThinking && <h1>🤔</h1>}
+      {gameState.isBotThinking && status === "inProgress" && <h1>🤔</h1>}
       <Grid>
         {!["inProgress", "coinFlip", "coinFlipDone"].includes(status) && (
           <Paper elevation={0}>
