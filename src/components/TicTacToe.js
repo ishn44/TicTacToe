@@ -3,12 +3,12 @@ import Display from "./Display";
 import { botPlay, gameStatus } from "../utils";
 
 export default function TicTacToe() {
-  let initialState = [];
+  let initialGame = [];
   for (let i = 0; i < 9; i++) {
-    initialState.push("");
+    initialGame.push("");
   }
   const getRandomBoolean = () => Math.random() < 0.5;
-  const [game, setGame] = useState(initialState);
+  const [game, setGame] = useState(initialGame);
   const [userSymbol, setUserSymbol] = useState("X");
   const [gameState, setGameState] = useState({
     status: "firstGame",
@@ -60,11 +60,14 @@ export default function TicTacToe() {
   };
 
   const handlePlayAgain = () => {
-    setGame(initialState);
+    const newGame = [...initialGame];
+    const isUserPlayingFirst = getRandomBoolean();
+    if (!isUserPlayingFirst) botPlay(newGame, userSymbol);
+    setGame(newGame);
     setGameState((prev) => ({
       ...prev,
       status: "inProgress",
-      isUserPlayingFirst: getRandomBoolean(),
+      isUserPlayingFirst,
     }));
   };
 
