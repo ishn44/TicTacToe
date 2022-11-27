@@ -22,14 +22,14 @@ export default function TicTacToe() {
 
   const updateState = (status) => {
     switch (status) {
-      case "botWon":
+      case "Sorry, you lost":
         setGameState((prev) => ({
           ...prev,
           botWins: prev.botWins + 1,
           status,
         }));
         break;
-      case "userWon":
+      case "Congrats, you won!":
         setGameState((prev) => ({
           ...prev,
           userWins: prev.userWins + 1,
@@ -66,6 +66,7 @@ export default function TicTacToe() {
 
   const handlePlayAgain = async () => {
     const newGame = [...initialGame];
+    setGame(newGame);
     setGameState((prev) => ({ ...prev, status: "coinFlip" }));
     await new Promise((resolve) => setTimeout(resolve, 2000));
     const isUserPlayingFirst = getRandomBoolean();

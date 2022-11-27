@@ -52,7 +52,9 @@ export function gameStatus(game, userSymbol) {
       game[line[0]] === game[line[1]] &&
       game[line[1]] === game[line[2]]
     )
-      return game[line[0]] === userSymbol ? "userWon" : "botWon";
+      return game[line[0]] === userSymbol
+        ? "Congrats, you won!"
+        : "Sorry, you lost";
   }
   if (game.findIndex((e) => !e) === -1) return "tie";
   return "inProgress";
