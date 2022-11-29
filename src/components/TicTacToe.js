@@ -22,14 +22,14 @@ export default function TicTacToe() {
 
   const updateState = (status) => {
     switch (status) {
-      case "Sorry, you lost":
+      case "botWon":
         setGameState((prev) => ({
           ...prev,
           botWins: prev.botWins + 1,
           status,
         }));
         break;
-      case "Congrats, you won!":
+      case "userWon":
         setGameState((prev) => ({
           ...prev,
           userWins: prev.userWins + 1,

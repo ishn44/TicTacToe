@@ -52,9 +52,7 @@ export function gameStatus(game, userSymbol) {
       game[line[0]] === game[line[1]] &&
       game[line[1]] === game[line[2]]
     )
-      return game[line[0]] === userSymbol
-        ? "Congrats, you won!"
-        : "Sorry, you lost";
+      return game[line[0]] === userSymbol ? "userWon" : "botWon";
   }
   if (game.findIndex((e) => !e) === -1) return "tie";
   return "inProgress";
@@ -68,3 +66,16 @@ export function isGameEmpty(game) {
   }
   return true;
 }
+
+function intersectingLines(line) {
+  return lines.filter((line2) => {
+    let intersection = line.filter((elem) => line2.includes(elem));
+    return intersection.length === 1;
+  });
+}
+
+console.log(intersectingLines(lines[0]));
+
+function lineScore(game, line, symbol) {}
+
+function sharedSpot(line1, line2) {}
