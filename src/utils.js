@@ -74,11 +74,16 @@ function intersectingLines(line) {
   });
 }
 
-console.log(intersectingLines(lines[0]));
+//console.log(intersectingLines(lines[0]));
 
 function lineScore(game, line, symbol) {
   return game.filter((value, index) => value === symbol && line.includes(index))
     .length;
 }
 
-function sharedSpot(line1, line2) {}
+function sharedSpot(line1, line2) {
+  let intersection = line1.filter((elem) => line2.includes(elem));
+  return intersection.length ? intersection[0] : -1;
+}
+
+console.log(sharedSpot(lines[0], lines[2]));
