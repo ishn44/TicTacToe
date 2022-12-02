@@ -59,7 +59,14 @@ export default function Display({
       <Grid>
         {!["inProgress", "coinFlip", "coinFlipDone"].includes(status) && (
           <Paper elevation={0}>
-            <h2>{status !== "firstGame" && status}</h2>
+            <h2>
+              {status !== "firstGame" &&
+                (status !== "tie"
+                  ? status === "userWon"
+                    ? "Victory!"
+                    : "Defeat"
+                  : "Draw")}
+            </h2>
             <Button variant="contained" onClick={handlePlayAgain}>
               {status === "firstGame" ? "Start Game" : "Play Again"}
             </Button>
