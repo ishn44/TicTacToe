@@ -19,6 +19,11 @@ export default function Display({
   userSymbol,
   gameState,
 }) {
+  const messages = {
+    userWon: "Victory!",
+    tie: "Draw",
+    botWon: "Defeat",
+  };
   const { status, isUserPlayingFirst } = gameState;
   return (
     <Container
@@ -59,14 +64,7 @@ export default function Display({
       <Grid>
         {!["inProgress", "coinFlip", "coinFlipDone"].includes(status) && (
           <Paper elevation={0}>
-            <h2>
-              {status !== "firstGame" &&
-                (status !== "tie"
-                  ? status === "userWon"
-                    ? "Victory!"
-                    : "Defeat"
-                  : "Draw")}
-            </h2>
+            <h2>{status !== "firstGame" && messages[status]}</h2>
             <Button variant="contained" onClick={handlePlayAgain}>
               {status === "firstGame" ? "Start Game" : "Play Again"}
             </Button>
