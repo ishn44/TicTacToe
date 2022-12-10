@@ -94,23 +94,48 @@ function unsharedSpots(line1, line2) {
 
 //console.log(sharedSpot(lines[0], lines[2]));
 
-// - If there are two intersecting lines where the opponent doesn't control any spots and the bot controls one non-shared spot on each line, take the spot shared by the two lines.
-// - If there are two intersecting lines where the opponent doesn't control any spots and the bot controls only one non-shared spot on one line, take a non-shared spot on the other line.
-// - If there are two intersecting lines where the opponent doesn't control any spots, take one one non-shared spot on either of those two lines
-
 function doubleWinStrategy(game, botSymbol, userSymbol) {
+  // - If there are two intersecting lines where the opponent doesn't control any spots and the bot controls one non-shared spot on each line, take the spot shared by the two lines.
   for (let line of lines) {
     for (let line2 of intersectingLines(line)) {
       if (lineScore(game, line, userSymbol)) continue;
       if (lineScore(game, line2, userSymbol)) continue;
-      if (!lineScore(game, unsharedSpots(line, line2), botSymbol)) continue;
-      if (!lineScore(game, unsharedSpots(line2, line), botSymbol)) continue;
-      return sharedSpot(line, line2);
+      if (
+        lineScore(game, unsharedSpots(line2, line), botSymbol) &&
+        lineScore(game, unsharedSpots(line, line2), botSymbol)
+      ) {
+        return sharedSpot(line, line2);
+      }
+    }
+  }
+
+  // - If there are two intersecting lines where the opponent doesn't control any spots and the bot controls only one non-shared spot on one line, take a non-shared spot on the other line.
+  for (let line of lines) {
+    for (let line2 of intersectingLines(line)) {
+      if (lineScore(game, line, userSymbol)) continue;
+      if (lineScore(game, line2, userSymbol)) continue;
+      if (lineScore(game, unsharedSpots(line, line2), botSymbol)) {
+        return unsharedSpots(line2, line)[0];
+      }
+      if (lineScore(game, unsharedSpots(line2, line), botSymbol)) {
+        return unsharedSpots(line, line2)[0];
+      }
+    }
+  }
+
+  // - If there are two intersecting lines where the opponent doesn't control any spots, take one one non-shared spot on either of those two lines
+  for (let line of lines) {
+    for (let line2 of intersectingLines(line)) {
+      if (lineScore(game, line, userSymbol)) continue;
+      if (lineScore(game, line2, userSymbol)) continue;
+      return unsharedSpots(line, line2)[0];
     }
   }
   return -1;
 }
-
+// x| |
+//  |x|
+//  | |
 // console.log(
-//   doubleWinStrategy(["X", "", "O", "", "X", "", "O", "", "X"], "O", "X")
+//   doubleWinStrategy(["X", "", "", "", "X", "", "", "", "X"], "O", "X")
 // );
