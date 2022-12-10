@@ -7,7 +7,7 @@ export default function TicTacToe() {
   for (let i = 0; i < 9; i++) {
     initialGame.push("");
   }
-  const getRandomBoolean = () => true; //Math.random() < 0.5;
+  const getRandomBoolean = () => Math.random() < 0.5;
   const [game, setGame] = useState(initialGame);
   const [userSymbol, setUserSymbol] = useState("X");
   const [gameState, setGameState] = useState({

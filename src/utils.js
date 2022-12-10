@@ -102,6 +102,7 @@ function unsharedSpots(line1, line2) {
 //console.log(sharedSpot(lines[0], lines[2]));
 
 function doubleWinStrategy(game, player, opponent, step) {
+  let result = -1;
   for (let line of lines) {
     for (let line2 of intersectingLines(line)) {
       if (lineScore(game, line, opponent)) continue;
@@ -112,47 +113,27 @@ function doubleWinStrategy(game, player, opponent, step) {
             lineScore(game, unsharedSpots(line2, line), player) &&
             lineScore(game, unsharedSpots(line, line2), player)
           ) {
-            // console.log(game, player, opponent, step, sharedSpot(line, line2));
-            return sharedSpot(line, line2);
+            result = sharedSpot(line, line2);
           }
           break;
         case 2:
           if (lineScore(game, unsharedSpots(line, line2), player)) {
-            // console.log(
-            //   game,
-            //   player,
-            //   opponent,
-            //   step,
-            //   unsharedSpots(line2, line)[0]
-            // );
-            return unsharedSpots(line2, line)[0];
+            result = unsharedSpots(line2, line)[0];
           }
           if (lineScore(game, unsharedSpots(line2, line), player)) {
-            // console.log(
-            //   game,
-            //   player,
-            //   opponent,
-            //   step,
-            //   unsharedSpots(line, line2)[0]
-            // );
-            return unsharedSpots(line, line2)[0];
+            result = unsharedSpots(line, line2)[0];
           }
           break;
         case 3:
-          // console.log(
-          //   game,
-          //   player,
-          //   opponent,
-          //   step,
-          //   line,
-          //   line2,
-          //   unsharedSpots(line, line2)[0]
-          // );
-          return unsharedSpots(line, line2).filter((elem) => elem !== 4)[0];
+          result = unsharedSpots(line, line2).filter((elem) => elem !== 4)[0];
+      }
+      if (result !== -1) {
+        //console.log(game, player, opponent, step, result);
+        return result;
       }
     }
   }
-  console.log(game, player, opponent, step, -1);
+  //console.log(game, player, opponent, step, -1);
   return -1;
 }
 
